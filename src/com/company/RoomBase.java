@@ -76,5 +76,7 @@ public abstract class RoomBase implements Room{
     public int NumberOfGuests(){
         return this.guests.size();
     }
-
+    public List<Guest> getGuests(){
+        return this.guests;
+    }
 }

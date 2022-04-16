@@ -11,4 +11,5 @@ public interface Room {
     void MakeUnavailable(LocalDate from, int days, String note);
     int NumberOfGuests();
     RoomTypes getType();
+    List<Guest> getGuests();
 }

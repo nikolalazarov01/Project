@@ -18,11 +18,14 @@ public class HotelBase implements Hotel{
         }
         else{
             availableRoom.CheckIn(guests, days, note, from);
+            guests.addAll(guests);
         }
     }
 
     @Override
     public void CheckOut(Room room) {
+        int index = guests.indexOf(room.getGuests().get(0));
+        guests.subList(index, room.getGuests().size()).clear();
         room.CheckOut();
     }
 
