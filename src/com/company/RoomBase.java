@@ -1,10 +1,12 @@
 package com.company;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class RoomBase implements Room{
+    private int roomNumber;
     protected  RoomTypes type;
     private List<Guest> guests = new ArrayList<>();
     private LocalDate occupiedFromDate;
@@ -13,10 +15,26 @@ public abstract class RoomBase implements Room{
     protected int numberOfBeds;
     private String note;
 
+    public RoomBase(int roomNumber){
+        this.roomNumber = roomNumber;
+    }
+
+    public int getRoomNumber(){
+        return this.roomNumber;
+    }
+
+    public LocalDate getOccupiedFromDate(){
+        return this.occupiedFromDate;
+    }
+
+    public LocalDate getOccupiedToDate(){
+        return this.occupiedToDate;
+    }
 
     public RoomTypes getType(){
         return this.type;
     }
+
     @Override
     public boolean IsFree(LocalDate from, int days) {
         if(CheckOccupation(from, days))
@@ -25,7 +43,10 @@ public abstract class RoomBase implements Room{
     }
 
     private boolean CheckOccupation(LocalDate from, int days){
-        if(from.isBefore(this.occupiedFromDate) && from.plusDays(days).isBefore(this.occupiedToDate)){
+        if(this.occupiedFromDate == null && this.occupiedToDate == null)
+            return true;
+
+        if(from.isBefore(this.occupiedFromDate) && from.plus(days, ChronoUnit.DAYS).isBefore(this.occupiedToDate)){
             return true;
         }
         else{
@@ -78,5 +99,10 @@ public abstract class RoomBase implements Room{
     }
     public List<Guest> getGuests(){
         return this.guests;
+    }
+
+    public void setOccupiedFromAndToDate(LocalDate from, int days){
+        this.occupiedFromDate = from;
+        this.occupiedToDate = from.plusDays(days);
     }
 }

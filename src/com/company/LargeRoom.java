@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LargeRoom extends RoomBase{
-    public LargeRoom(){
+    public LargeRoom(int number){
+        super(number);
         super.numberOfBeds = 5;
         super.roomPrice = 300;
         super.type = RoomTypes.Large;

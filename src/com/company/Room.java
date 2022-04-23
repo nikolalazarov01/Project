@@ -12,4 +12,8 @@ public interface Room {
     int NumberOfGuests();
     RoomTypes getType();
     List<Guest> getGuests();
+    LocalDate getOccupiedFromDate();
+    LocalDate getOccupiedToDate();
+    void setOccupiedFromAndToDate(LocalDate from, int days);
+    int getRoomNumber();
 }
