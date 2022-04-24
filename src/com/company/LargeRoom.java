@@ -11,4 +11,8 @@ public class LargeRoom extends RoomBase{
         super.roomPrice = 300;
         super.type = RoomTypes.Large;
     }
+
+    public String toString(){
+        return "Room number: " + Integer.toString(super.getRoomNumber()) + "; Room type: " + super.getType().toString();
+    }
 }

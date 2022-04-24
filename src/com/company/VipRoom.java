@@ -11,4 +11,8 @@ public class VipRoom extends RoomBase implements VipRoomInterface{
         super.roomPrice = 450;
         super.type = RoomTypes.Vip;
     }
+
+    public String toString(){
+        return "Room number: " + Integer.toString(super.getRoomNumber()) + "; Room type: " + super.getType().toString();
+    }
 }

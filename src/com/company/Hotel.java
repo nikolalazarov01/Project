@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class Hotel implements HotelInterface {
-    List<Guest> guests;
+    List<Guest> guests = new ArrayList<>();
     List<Room> rooms = new ArrayList<>();
 
     public void AddRooms(List<Room> rooms){
@@ -20,7 +20,7 @@ public class Hotel implements HotelInterface {
 
     @Override
     public void CheckIn(RoomTypes roomType, List<Guest> guests, int days, String note, LocalDate from) {
-        Room availableRoom = Find(guests.size() - 1, from, days);
+        Room availableRoom = Find(guests.size(), from, days);
         if(availableRoom == null)
         {
             String message = DefaultMessages.DisplayDefaultMessage(DefaultMessagesTypes.NoRoom);
@@ -29,12 +29,21 @@ public class Hotel implements HotelInterface {
         else{
             availableRoom.CheckIn(guests, days, note, from);
             availableRoom.setOccupiedFromAndToDate(from, days);
-            guests.addAll(guests);
+            this.guests.addAll(guests);
         }
     }
 
     @Override
-    public void CheckOut(Room room) {
+    public void CheckOut(int roomNumber) {
+        Room room = null;
+        for(Room r : rooms){
+            if(r.getRoomNumber() == roomNumber)
+                room = r;
+        }
+        if(room == null)
+            return;
+        if(room.getGuests().size() == 0)
+            return;
         int index = guests.indexOf(room.getGuests().get(0));
         guests.subList(index, room.getGuests().size()).clear();
         room.CheckOut();
@@ -52,7 +61,7 @@ public class Hotel implements HotelInterface {
                 availableRooms.add(room);
             }
         }
-        return null;
+        return availableRooms;
     }
 
     @Override
@@ -112,11 +121,11 @@ public class Hotel implements HotelInterface {
         Room suitableRoom = null;
 
         for(Room room : rooms){
-            if(room.getType() == RoomTypes.Small && suitableRoom == null)
+            if(room.getType() == RoomTypes.Small && (suitableRoom == null || suitableRoom.getType() != RoomTypes.Small))
                 suitableRoom = room;
-            else if(room.getType() == RoomTypes.Large && suitableRoom == null)
+            else if(room.getType() == RoomTypes.Large && (suitableRoom == null || suitableRoom.getType() == RoomTypes.Vip))
                 suitableRoom = room;
-            else
+            else if(suitableRoom == null)
                 suitableRoom = room;
         }
 

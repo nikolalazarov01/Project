@@ -16,4 +16,7 @@ public interface Room {
     LocalDate getOccupiedToDate();
     void setOccupiedFromAndToDate(LocalDate from, int days);
     int getRoomNumber();
+    String getNote();
+    String getOccupiedFromDateString();
+    String getOccupiedToDateString();
 }

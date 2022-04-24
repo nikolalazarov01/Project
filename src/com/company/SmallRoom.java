@@ -11,4 +11,8 @@ public class SmallRoom extends RoomBase{
         super.roomPrice = 150;
         super.type = RoomTypes.Small;
     }
+
+    public String toString(){
+        return "Room number: " + Integer.toString(super.getRoomNumber()) + "; Room type: " + super.getType().toString();
+    }
 }

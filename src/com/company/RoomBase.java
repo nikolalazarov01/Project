@@ -23,6 +23,18 @@ public abstract class RoomBase implements Room{
         return this.roomNumber;
     }
 
+    public String getOccupiedFromDateString(){
+        if(this.occupiedFromDate == null)
+            return "null";
+        else return this.occupiedFromDate.toString();
+    }
+
+    public String getOccupiedToDateString(){
+        if(this.occupiedToDate == null)
+            return "null";
+        else return this.occupiedToDate.toString();
+    }
+
     public LocalDate getOccupiedFromDate(){
         return this.occupiedFromDate;
     }
@@ -104,5 +116,9 @@ public abstract class RoomBase implements Room{
     public void setOccupiedFromAndToDate(LocalDate from, int days){
         this.occupiedFromDate = from;
         this.occupiedToDate = from.plusDays(days);
+    }
+
+    public String getNote(){
+        return this.note;
     }
 }
