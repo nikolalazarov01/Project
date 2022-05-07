@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoomFactory {
-    private static Room SmallRoom(int number){
+    public static Room SmallRoom(int number){
         return new SmallRoom(number);
     }
 
-    private static Room LargeRoom(int number){
+    public static Room LargeRoom(int number){
         return new LargeRoom(number);
     }
 
-    private static Room VipRoom(int number){
+    public static Room VipRoom(int number){
         return new VipRoom(number);
     }
 

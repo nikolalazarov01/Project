@@ -18,6 +18,8 @@ public class Hotel implements HotelInterface {
         this.rooms.add(room);
     }
 
+    public void AddGuests(List<Guest> guests) {this.guests.addAll(guests);}
+
     @Override
     public void CheckIn(RoomTypes roomType, List<Guest> guests, int days, String note, LocalDate from) {
         Room availableRoom = Find(guests.size(), from, days);
