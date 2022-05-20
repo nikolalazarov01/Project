@@ -12,13 +12,17 @@ public class Main {
         FileActions.ReadFromFile("hotel.xml", hotel);
         //System.out.println(hotel.guests);
         int a;
-        //List<Guest> guest = new ArrayList<>();
-        //guest.add(new AdultGuest());
-        //hotel.CheckIn(RoomTypes.Small, guest, 4, "I like it here!", LocalDate.now());
-        //System.out.println(hotel.Report(LocalDate.now().minus(1, ChronoUnit.DAYS), LocalDate.now().plus(2, ChronoUnit.DAYS)));
-        //System.out.println(hotel.Availability(LocalDate.now()));
-        //hotel.CheckOut(2);
-        //System.out.println(hotel.Availability(LocalDate.now()));
-        //FileActions.WriteToFile(hotel);
+        /*List<Guest> guests = new ArrayList<>();
+        guests.add(new AdultGuest());
+        guests.add(new RetiredGuest());
+        hotel.CheckIn(RoomTypes.Small, guests, 4, "I like it here!", LocalDate.now());
+        System.out.println(hotel.Report(LocalDate.now().minus(1, ChronoUnit.DAYS), LocalDate.now().plus(2, ChronoUnit.DAYS)));
+        System.out.println(hotel.Availability(LocalDate.now()));
+        hotel.CheckOut(2);
+        System.out.println(hotel.Availability(LocalDate.now()));
+        List<Guest> guest = new ArrayList<>();
+        guest.add(new ChildGuest());
+        hotel.CheckIn(RoomTypes.Small, guest, 4, "", LocalDate.now());
+        FileActions.WriteToFile(hotel);*/
     }
 }

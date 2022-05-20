@@ -24,7 +24,9 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 
 public class FileActions {
-    public static void WriteToFile(Hotel hotel){
+    public static void WriteToFile(Hotel hotel, String filePath){
+        filePath += "hotel.xml";
+
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -34,6 +36,17 @@ public class FileActions {
             Element rootElement = doc.createElement("hotel");
             doc.appendChild(rootElement);
 
+
+            int guestIdCount = 1;
+            for(Guest guest : hotel.guests){
+                Element guests = doc.createElement("guests");
+                rootElement.appendChild(guests);
+                guests.setAttribute("id", Integer.toString(guestIdCount++));
+
+                Element type = doc.createElement("t");
+                type.setTextContent(guest.getType());
+                guests.appendChild(type);
+            }
 
             int roomIdCount = 1;
             for (Room room : hotel.rooms) {
@@ -67,18 +80,9 @@ public class FileActions {
                 rooms.appendChild(note);
             }
 
-            int guestIdCount = 1;
-            for(Guest guest : hotel.guests){
-                Element guests = doc.createElement("guests");
-                rootElement.appendChild(guests);
-                guests.setAttribute("id", Integer.toString(guestIdCount++));
 
-                Element type = doc.createElement("t");
-                type.setTextContent(guest.getType());
-                guests.appendChild(type);
-            }
             FileOutputStream output =
-                    new FileOutputStream("hotel.xml");
+                    new FileOutputStream(filePath);
 
             writeXml(doc, output);
         }catch(Exception ex){
@@ -110,13 +114,10 @@ public class FileActions {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(xmlFile);
 
-            NodeList rooms = doc.getElementsByTagName("rooms");
-            //doc = builder.parse(xmlFile);
             NodeList guests = doc.getElementsByTagName("guests");
+            NodeList rooms = doc.getElementsByTagName("rooms");
+
             Node guestN = guests.item(0);
-            //Element guestE = (Element) guestN;
-            //String t = guestE.getElementsByTagName("t").item(0).getTextContent();
-            //System.out.println(t);
             int guestNumber = 0;
             int roomsLength = rooms.getLength();
             for(int i = 0; i<rooms.getLength(); i++){
@@ -142,8 +143,8 @@ public class FileActions {
                         if(Integer.parseInt(roomElement.getElementsByTagName("guests").item(0).getTextContent()) != 0){
 
                             int numberOfGuests = Integer.parseInt(roomElement.getElementsByTagName("guests").item(0).getTextContent());
-                            for(int j = 0; j<numberOfGuests; j++){
-                                Node guestsNode = guests.item(0);
+                            for(int j = guestNumber; j<guestNumber + numberOfGuests; j++){
+                                Node guestsNode = guests.item(j);
                                 if(guestsNode.getNodeType() == Node.ELEMENT_NODE)
                                 {
 
@@ -156,6 +157,7 @@ public class FileActions {
                                     }
                                 }
                             }
+                            guestNumber++;
                             roomFromFile.CheckIn(guestsFromFile, (int)(DAYS.between(LocalDate.parse(roomElement.getElementsByTagName("occupied-from").item(0).getTextContent()), LocalDate.parse(roomElement.getElementsByTagName("occupied-from").item(0).getTextContent()))), "", LocalDate.parse(roomElement.getElementsByTagName("occupied-from").item(0).getTextContent()));
                         }
 
