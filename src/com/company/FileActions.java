@@ -107,6 +107,7 @@ public class FileActions {
     }
 
     public static void ReadFromFile(String filePath, Hotel hotel){
+        filePath += "\\hotel.xml";
         List<Room> roomsList = new ArrayList<>();
         try{
             File xmlFile = new File(filePath);
