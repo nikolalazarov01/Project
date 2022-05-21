@@ -13,6 +13,6 @@ public class LargeRoom extends RoomBase{
     }
 
     public String toString(){
-        return "Room number: " + Integer.toString(super.getRoomNumber()) + "; Room type: " + super.getType().toString();
+        return "Room number: " + super.getRoomNumber() + "; Room type: " + super.getType().toString();
     }
 }

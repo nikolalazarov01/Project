@@ -20,13 +20,14 @@ public class Hotel implements HotelInterface {
 
     public void AddGuests(List<Guest> guests) {this.guests.addAll(guests);}
 
+    //function that takes room type, list of guests, days, note and date for checking in
     @Override
     public void CheckIn(RoomTypes roomType, List<Guest> guests, int days, String note, LocalDate from) {
+        //finding available room
         Room availableRoom = Find(guests.size(), from, days);
         if(availableRoom == null)
         {
-            String message = DefaultMessages.DisplayDefaultMessage(DefaultMessagesTypes.NoRoom);
-            MessageOutput.ConsoleOutput(message);
+            MessageOutput.ConsoleOutput(DefaultMessagesTypes.NoRoom.label);
         }
         else{
             availableRoom.CheckIn(guests, days, note, from);
@@ -35,22 +36,28 @@ public class Hotel implements HotelInterface {
         }
     }
 
+    //function that takes only the room number
     @Override
     public void CheckOut(int roomNumber) {
         Room room = null;
+        //iterating through the list of rooms in order to find the matching one
         for(Room r : rooms){
             if(r.getRoomNumber() == roomNumber)
                 room = r;
         }
         if(room == null)
             return;
+        //if the room is not occupied
         if(room.getGuests().size() == 0)
             return;
+        //taking the index of the first guest in the list
         int index = guests.indexOf(room.getGuests().get(0));
-        guests.subList(index, room.getGuests().size()).clear();
+        //deleting the guests that have been checked out from the list
+        guests.subList(index, index + room.getGuests().size()).clear();
         room.CheckOut();
     }
 
+    //function that returns list of free rooms in the given date
     @Override
     public List<Room> Availability(LocalDate date) {
         if(date == null)
@@ -66,6 +73,7 @@ public class Hotel implements HotelInterface {
         return availableRooms;
     }
 
+    //function that returns report for the rooms in the hotel
     @Override
     public String Report(LocalDate from, LocalDate to) {
         List<Room> freeRooms = new ArrayList<>();
@@ -98,6 +106,8 @@ public class Hotel implements HotelInterface {
 
     }
 
+    //function that finds suitable room for the need of the checking in guests
+    //if there is not such room it returns null
     @Override
     public Room Find(int beds, LocalDate from, int days) {
         List<Room> suitableRooms = new ArrayList<>();
@@ -119,10 +129,12 @@ public class Hotel implements HotelInterface {
 
     }
 
+    //function that returns the suitable room
     private Room SuitableRoom(List<Room> rooms){
         Room suitableRoom = null;
 
         for(Room room : rooms){
+            //if the suitable room hasn't been initialized or it has been initialized to not optimal room it is being initialized to the current
             if(room.getType() == RoomTypes.Small && (suitableRoom == null || suitableRoom.getType() != RoomTypes.Small))
                 suitableRoom = room;
             else if(room.getType() == RoomTypes.Large && (suitableRoom == null || suitableRoom.getType() == RoomTypes.Vip))
@@ -139,6 +151,7 @@ public class Hotel implements HotelInterface {
         return null;
     }
 
+    //function that makes room unavailable, given the room, date from when it is unavailable, days unavailable and note
     @Override
     public void MakeUnavailable(Room room, LocalDate from, int days, String note) {
         room.MakeUnavailable(from, days, note);
