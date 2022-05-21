@@ -3,6 +3,7 @@ package com.company;
 public class HotelDiscount implements Discount{
     private DiscountTypes type;
 
+    //Discount for the different types of guests
     public HotelDiscount(DiscountTypes type){
         this.type = type;
     }

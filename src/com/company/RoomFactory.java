@@ -16,6 +16,7 @@ public class RoomFactory {
         return new VipRoom(number);
     }
 
+    //function returning list of rooms from given type
     public static List<Room> ListRoom(RoomTypes type, int numberOfRooms, int startRoomNumber){
         switch (type){
             case Small:{

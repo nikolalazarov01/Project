@@ -5,6 +5,7 @@ import java.util.List;
 
 public class RoomBuilder {
     public static class Builder{
+        //builder that returns list of rooms for the hotel
         List<Room> roomsList = new ArrayList<>();
         int startRoomNumber;
         public Builder(int startRoomNumber){

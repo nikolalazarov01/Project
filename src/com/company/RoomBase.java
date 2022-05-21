@@ -15,6 +15,7 @@ public abstract class RoomBase implements Room{
     protected int numberOfBeds;
     private String note;
 
+    //the basic thing a room needs is a room number
     public RoomBase(int roomNumber){
         this.roomNumber = roomNumber;
     }
@@ -47,6 +48,7 @@ public abstract class RoomBase implements Room{
         return this.type;
     }
 
+    //If the room is free between two dates the function returns true, else returns false
     @Override
     public boolean IsFree(LocalDate from, int days) {
         if(CheckOccupation(from, days))
@@ -54,14 +56,19 @@ public abstract class RoomBase implements Room{
         else return false;
     }
 
+    //function that checks if the room is free
     private boolean CheckOccupation(LocalDate from, int days){
+        //if the occupied from and to dates are null it means that the room is always free
         if(this.occupiedFromDate == null && this.occupiedToDate == null)
             return true;
 
-        if(from.isBefore(this.occupiedFromDate) && from.plus(days, ChronoUnit.DAYS).isBefore(this.occupiedToDate)){
+        //if the searched period is before the first coming occupation it means that the room is free
+        if(from.isBefore(this.occupiedFromDate) && from.plus(days, ChronoUnit.DAYS).isBefore(this.occupiedFromDate)){
             return true;
         }
         else{
+            //if the first day for the new occupation is after the last day in which the room is occupied it means
+            //that the room is free
             if(from.isAfter(this.occupiedToDate))
                 return true;
             else
@@ -74,6 +81,7 @@ public abstract class RoomBase implements Room{
         return numberOfBeds;
     }
 
+    //function that calculates the room prise when a payment system is introduced
     private double getPrice(List<Guest> guests) {
         double discount = 0;
         for(Guest g : guests){
@@ -83,6 +91,7 @@ public abstract class RoomBase implements Room{
         return roomPrice*(guests.size()) - roomPrice*discount;
     }
 
+    //function that checks in the guests
     @Override
     public double CheckIn(List<Guest> guests, int days, String note, LocalDate from) {
         this.guests = guests;
@@ -92,6 +101,7 @@ public abstract class RoomBase implements Room{
         return getPrice(guests);
     }
 
+    //function that deletes all the information about the guests, that are being checked out
     @Override
     public void CheckOut() {
         this.guests = new ArrayList<>();
@@ -100,6 +110,7 @@ public abstract class RoomBase implements Room{
         this.numberOfBeds = 3;
     }
 
+    //making the room unavailable in the given time if the room will be repaired or other things
     public void MakeUnavailable(LocalDate from, int days, String note){
         this.occupiedFromDate = from;
         this.occupiedToDate = this.occupiedFromDate.plusDays(days);
@@ -112,6 +123,7 @@ public abstract class RoomBase implements Room{
     public List<Guest> getGuests(){
         return this.guests;
     }
+
 
     public void setOccupiedFromAndToDate(LocalDate from, int days){
         this.occupiedFromDate = from;
