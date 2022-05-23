@@ -19,7 +19,6 @@ public class Main {
 
         if(Files.exists(filePath)){
             FileActions.ReadFromFile(filePath.toString(), hotel);
-            MessageOutput.ConsoleOutput(DefaultMessagesTypes.DataFromFileLoaded.label);
         }
 
         else{
@@ -42,6 +41,7 @@ public class Main {
             }
         }
 
+        boolean flag = false;
         while(true){
             String answer;
             Scanner sc = new Scanner(System.in);
@@ -155,12 +155,13 @@ public class Main {
                             FileActions.WriteToFile(hotel, filePath.toString());
                         }break;
                     }
-
+                    flag = true;
 
                 }break;
                 default: break;
             }
-            //sc.close();
+            if(flag)
+                break;
         }
 
 
