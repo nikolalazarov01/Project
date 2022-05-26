@@ -2,7 +2,10 @@ package com.company;
 
 public class Menu implements MenuInterface{
 
-    //Displays the given menu from the enumerable
+    /**
+     * Function that displays given menu
+     * @param type Type of the menu being displayed
+     */
     @Override
     public void Display(MenuTypes type) {
         System.out.println(type.label);

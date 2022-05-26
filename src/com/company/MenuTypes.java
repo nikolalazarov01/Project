@@ -31,6 +31,10 @@ public enum MenuTypes {
 
     public final String label;
 
+    /**
+     * Constructor for the enumerable with values for types of menu
+     * @param label The Content of the menu
+     */
     private MenuTypes(String label){
         this.label = label;
     }

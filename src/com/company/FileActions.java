@@ -27,7 +27,11 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 
 public class FileActions {
-    //takes instance of Hotel and a file path
+    /**
+     * Function that saves the data from the given Hotel to file at the given path
+     * @param hotel Instance of Hotel class, containing the data that will be saved
+     * @param filePath  Path to file where the data will be stored
+     */
     public static void WriteToFile(Hotel hotel, String filePath){
         try {
             //creating the xml document
@@ -100,6 +104,13 @@ public class FileActions {
         }
     }
 
+    /**
+     * Function that takes instance of Document and OutputStream and writes the data in a file
+     * This function is taken from StackOverflow and modified
+     * @param doc Instance of Document with the data, that will be saved
+     * @param output Instance of OutputStream, which will save the data to file in the given location
+     * @throws TransformerException
+     */
     private static void writeXml(Document doc,
                                  OutputStream output)
             throws TransformerException {
@@ -116,7 +127,12 @@ public class FileActions {
 
     }
 
-    //function that takes the path to the file and an instance of Hotel
+    /**
+     * Function that takes path to the file with data and instance of Hotel class where the data will be loaded
+     * @param filePath The path to the data file
+     * @param hotel Instance of Hotel class in which the data will be loaded
+     * @return Returns boolean value if the operation has succeeded or not
+     */
     public static boolean ReadFromFile(String filePath, Hotel hotel){
         //checking if the file exists
         Path path = Paths.get(filePath);

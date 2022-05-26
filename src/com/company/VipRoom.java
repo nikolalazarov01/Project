@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VipRoom extends RoomBase implements VipRoomInterface{
+    /**
+     * Constructor of the new VIP room
+     * @param number Number of the room
+     */
     public VipRoom(int number){
         super(number);
         super.numberOfBeds = 3;

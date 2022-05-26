@@ -106,7 +106,8 @@ public class Main {
                 case 3:{
                     LocalDate date;
                     menu.Display(MenuTypes.AvailabilityDate);
-                    date = LocalDate.parse(sc.nextLine());
+                    String dateInput = sc.nextLine();
+                    date = LocalDate.parse(dateInput);
                     List<Room> roomsAvailable = hotel.Availability(date);
                     System.out.println(roomsAvailable);
                 } break;
@@ -126,7 +127,7 @@ public class Main {
                     //int beds, LocalDate from, int days
                     int beds;
                     menu.Display(MenuTypes.Beds);
-                    beds = sc.nextInt();
+                    beds = Integer.parseInt(sc.nextLine());
 
                     LocalDate from;
                     menu.Display(MenuTypes.FromDate);
@@ -164,20 +165,5 @@ public class Main {
                 break;
         }
 
-
-        //System.out.println(hotel.guests);
-
-        /*List<Guest> guests = new ArrayList<>();
-        guests.add(new AdultGuest());
-        guests.add(new RetiredGuest());
-        hotel.CheckIn(RoomTypes.Small, guests, 4, "I like it here!", LocalDate.now());
-        System.out.println(hotel.Report(LocalDate.now().minus(1, ChronoUnit.DAYS), LocalDate.now().plus(2, ChronoUnit.DAYS)));
-        System.out.println(hotel.Availability(LocalDate.now()));
-        hotel.CheckOut(2);
-        System.out.println(hotel.Availability(LocalDate.now()));
-        List<Guest> guest = new ArrayList<>();
-        guest.add(new ChildGuest());
-        hotel.CheckIn(RoomTypes.Small, guest, 4, "", LocalDate.now());
-        FileActions.WriteToFile(hotel);*/
     }
 }

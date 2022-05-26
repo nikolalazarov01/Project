@@ -10,17 +10,37 @@ public class Hotel implements HotelInterface {
     List<Guest> guests = new ArrayList<>();
     List<Room> rooms = new ArrayList<>();
 
+    /**
+     * Void function that adds list of rooms to the hotel
+     * @param rooms List of different types of rooms
+     */
     public void AddRooms(List<Room> rooms){
         this.rooms.addAll(rooms);
     }
 
+    /**
+     * Void function that adds single room to the hotel
+     * @param room Instance of Room
+     */
     public void AddRoom(Room room){
         this.rooms.add(room);
     }
 
+    /**
+     * Function that adds list of guests to the hotel
+     * @param guests List of different types of guests
+     */
     public void AddGuests(List<Guest> guests) {this.guests.addAll(guests);}
 
-    //function that takes room type, list of guests, days, note and date for checking in
+    /**
+     * Function that makes check in - Finds the best room that matches the requirements, makes the room unavailable at the current dates,
+     * leaves a note and adds the list of guests to the hotel
+     * @param roomType Instance of RoomType enumerable
+     * @param guests List of instances of Guest
+     * @param days Number of days of stay
+     * @param note Note that the guests leave
+     * @param from Date from which the guests are staying
+     */
     @Override
     public void CheckIn(RoomTypes roomType, List<Guest> guests, int days, String note, LocalDate from) {
         //finding available room
@@ -36,7 +56,10 @@ public class Hotel implements HotelInterface {
         }
     }
 
-    //function that takes only the room number
+    /**
+     * Function that checks out guests - it takes them out from the hotel's list and makes the room available
+     * @param roomNumber Room number of the room, whose guests are checking out
+     */
     @Override
     public void CheckOut(int roomNumber) {
         Room room = null;
@@ -57,7 +80,11 @@ public class Hotel implements HotelInterface {
         room.CheckOut();
     }
 
-    //function that returns list of free rooms in the given date
+    /**
+     * Function that returns list of available rooms in the given date
+     * @param date Date for which free rooms are searched
+     * @return Returns List of rooms which are available at the given date
+     */
     @Override
     public List<Room> Availability(LocalDate date) {
         if(date == null)
@@ -74,6 +101,13 @@ public class Hotel implements HotelInterface {
     }
 
     //function that returns report for the rooms in the hotel
+
+    /**
+     * Function that returns full report for the rooms in a given time span
+     * @param from Starting date for the report
+     * @param to Ending date fof the report
+     * @return Returns the report in String format
+     */
     @Override
     public String Report(LocalDate from, LocalDate to) {
         List<Room> freeRooms = new ArrayList<>();
@@ -108,6 +142,15 @@ public class Hotel implements HotelInterface {
 
     //function that finds suitable room for the need of the checking in guests
     //if there is not such room it returns null
+
+    /**
+     * Function that finds suitable room for the need of the checking in guests
+     * if there is not such room it returns null
+     * @param beds Number of beds needed
+     * @param from Starting date for staying
+     * @param days Number of days staying
+     * @return Returns the room that meets the requirements
+     */
     @Override
     public Room Find(int beds, LocalDate from, int days) {
         List<Room> suitableRooms = new ArrayList<>();
@@ -130,6 +173,12 @@ public class Hotel implements HotelInterface {
     }
 
     //function that returns the suitable room
+
+    /**
+     * Function that picks the optimal room from a list of rooms
+     * @param rooms List of Room
+     * @return Returns the room that meets the requirements
+     */
     private Room SuitableRoom(List<Room> rooms){
         Room suitableRoom = null;
 
@@ -146,12 +195,25 @@ public class Hotel implements HotelInterface {
         return suitableRoom;
     }
 
+    /**
+     * Function that makes changes in the guests placement, so a room can be freed for a vip person
+     * @param beds Number of beds needed
+     * @param from Starting date for staying
+     * @param days Number of days of staying
+     * @return Returns the room that meets the requirements
+     */
     @Override
     public Room FindUrgent(int beds, LocalDate from, int days) {
         return null;
     }
 
-    //function that makes room unavailable, given the room, date from when it is unavailable, days unavailable and note
+    /**
+     * Function that makes given room from the list of rooms in the hotel unavailable, because of repairs or some other reason
+     * @param room Instance of room in the list of rooms in the hotel
+     * @param from Starting date from which the room will be unavailable
+     * @param days Number of days unavailable
+     * @param note Note from the staff
+     */
     @Override
     public void MakeUnavailable(Room room, LocalDate from, int days, String note) {
         room.MakeUnavailable(from, days, note);

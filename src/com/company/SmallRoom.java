@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SmallRoom extends RoomBase{
+    /**
+     * Constructor for the new Small room
+     * @param number Number of the room
+     */
     public SmallRoom(int number){
         super(number);
         super.numberOfBeds = 3;
